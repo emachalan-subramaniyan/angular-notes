@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiBaseUrl: "http://localhost:8100/notes"
+  apiBaseUrl: "https://hybridapp-beta.herokuapp.com/notes"
 };
 
 /*
