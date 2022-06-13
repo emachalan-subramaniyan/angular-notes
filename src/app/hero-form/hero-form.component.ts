@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { Hero } from '../hero';
+import { Hero, Note } from '../hero';
 import { ApiService } from '../api.service';
 
 @Component({
@@ -11,53 +11,47 @@ import { ApiService } from '../api.service';
 
 export class HeroFormComponent {
 
-  constructor(private api: ApiService) {}
+  constructor(private api: ApiService) { }
 
   ngOnInit() {
     this.getNotes();
   }
 
-
   model = new Hero(null, null, null);
 
-  smartphone: any = [];
-
-  notes:any = [];
+  notes: any = [];
+  defaultnotes: any = [];
 
   update = false;
 
   submitted = false;
 
-  onSubmit() { 
+  selectedSore = '0';
+
+  onSubmit() {
     this.submitted = true;
     this.api.createNote(this.model)
       .subscribe((data: any) => {
-        console.log('post data...', data)
-        if(data && data.message === 'note created successfully') {
-        //   this.notes = data.data;
+        if (data && data.message === 'note created successfully') {
+          this.selectedSore = '0';
           this.getNotes();
         }
       });
-    // this.notes.push(this.model);
     this.model = new Hero(null, null, null);
   }
 
   onUpdate() {
-      let objIndex = this.notes.findIndex(((obj: any) => obj.id == this.model.id));
+    let objIndex = this.notes.findIndex(((obj: any) => obj.id == this.model.id));
 
-      this.api.updateNote(this.model)
+    this.api.updateNote(this.model)
       .subscribe((data: any) => {
-        console.log('get data...', data)
-        if(data && data.message === 'note updated successfully') {
+        if (data && data.message === 'note updated successfully') {
           this.getNotes();
         }
       });
-  //Log object to Console.
-
-  //Update object's name property.
-  this.notes[objIndex] = this.model;
-      this.model = new Hero(this.notes.length, '', '');
-      this.update = false;
+    this.notes[objIndex] = this.model;
+    this.model = new Hero(this.notes.length, '', '');
+    this.update = false;
   }
 
 
@@ -66,7 +60,7 @@ export class HeroFormComponent {
     this.update = false;
   }
 
-  onEditPress(data: {id: string, title: string, content: string}) {
+  onEditPress(data: { id: string, title: string, content: string }) {
     this.model = data
     this.update = true;
   }
@@ -74,23 +68,31 @@ export class HeroFormComponent {
   getNotes() {
     this.api.getNotes()
       .subscribe((data: any) => {
-        console.log('get data...', data)
-        if(data && data.message === 'notes get successfully') {
-          this.notes = data.data;
+        if (data && data.message === 'notes get successfully') {
+          this.notes = data?.data;
+          this.defaultnotes = data?.data;
+          this.onFilterChange(null, true);
         }
       });
   }
 
   onDeletePress(id: string) {
-    // let dd = this.notes;
     this.api.deleteNote(id)
       .subscribe((data: any) => {
-        console.log('get data...', data)
-        if(data && data.message === 'note delete successfully') {
+        if (data && data.message === 'note delete successfully') {
           this.getNotes();
         }
       });
-    // this.notes = dd.filter((item: any) => item.id != id);
   }
 
+  onFilterChange(e: any, reset = false) {
+    let value = e?.target?.value ?? null;
+    if (value === '0' || reset) {
+      this.notes = [...this.defaultnotes];
+    } else if (value === '1') {
+      this.notes.sort((a: Note, b: Note) => a.title.localeCompare(b.title))
+    } else if (value === '2') {
+      this.notes.sort((a: Note, b: Note) => Date.parse(b.created_at) - Date.parse(a.created_at))
+    }
+  }
 }

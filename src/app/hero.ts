@@ -8,7 +8,10 @@ export class Hero {
 
 }
 
-export interface Smartphone {
-  message: string;
-  data: any;
+export interface Note {
+  content: string;
+  created_at: string;
+  id: string;
+  title: string;
+  updated_at: string;
 }

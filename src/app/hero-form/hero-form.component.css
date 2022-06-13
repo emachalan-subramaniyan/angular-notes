@@ -80,3 +80,15 @@
 .custom-width {
     width: 70%;
 }
+
+.row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.row-class {
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 10px;
+}

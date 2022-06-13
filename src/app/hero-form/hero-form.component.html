@@ -34,29 +34,24 @@
       </form>
     </div>
 
-    <!-- <div [hidden]="!submitted">
-    <h2>You submitted the following:</h2>
-    <div class="row">
-      <div class="col-xs-3">Title</div>
-      <div class="col-xs-9">{{ model.title }}</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">Content</div>
-      <div class="col-xs-9">{{ model.content }}</div>
-    </div>
-    <br>
-    <button type="button" class="btn btn-primary" (click)="submitted=false">Edit</button>
-    <button type="button" class="btn btn-default" (click)="submitted=false; newHero(); heroForm.reset()">New Content</button>
-  </div> -->
-
 
   </div>
 
 
   <div>
     <div class="notesListHeader">
-      <h2>Notes:</h2>
-      <div class="cursor-class" (click)="newHero(); noteForm.reset()">Create new</div>
+      <h4>Notes:</h4>
+      <div class="row w-auto row-class">
+        <div class="cursor-class w-auto" (click)="newHero(); noteForm.reset()">Create note</div>
+        <div class="row w-auto">
+          <p class="w-auto m-0" >Sort by:</p>
+          <select class="w-auto" (change)="onFilterChange($event)" [(ngModel)]="selectedSore">
+            <option value='0'>Default</option>
+            <option value='1'>Alphabetic</option>
+            <option value='2'>Created At</option>
+          </select>
+        </div>
+    </div>
     </div>
     <div class="list-group">
       <div *ngFor="let note of notes"
