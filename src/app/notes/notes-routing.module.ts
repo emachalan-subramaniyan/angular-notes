@@ -6,8 +6,8 @@ import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
-  { path: 'notes', redirectTo: 'notes/index', pathMatch: 'full'},
-  { path: 'notes/index', component: IndexComponent },
+  // { path: 'notes', redirectTo: 'notes/index', pathMatch: 'full'},
+  // { path: 'notes/index', component: IndexComponent },
   { path: 'notes/:notesId/view', component: ViewComponent },
   { path: 'notes/create', component: CreateComponent },
   { path: 'notes/:notesId/edit', component: EditComponent } 

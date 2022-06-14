@@ -1,10 +1,18 @@
 {
-  "name": "hybrid-app",
-  "version": "0.0.0",
+  "name": "com.angular.notes",
+  "displayName": "AngularNotes",
+  "version": "1.0.0",
+  "description": "Angular app for notes",
+  "main": "index.js",
+  "keywords": [
+    "ecosystem:cordova"
+  ],
+  "author": "Apache Cordova Team",
+  "license": "Apache-2.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
-    "build": "ng build --configuration=production",
+    "start": "ng serve",
+    "build": "ng build --configuration=production --aot",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "heroku-postbuild": "ng build --configuration=production"
@@ -37,6 +45,7 @@
     "@babel/core": "^7.18.5",
     "@babel/preset-env": "^7.18.2",
     "@types/jasmine": "~4.0.0",
+    "cordova-android": "^10.1.2",
     "jasmine-core": "~4.1.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
@@ -44,5 +53,10 @@
     "karma-jasmine": "~5.0.0",
     "karma-jasmine-html-reporter": "~1.7.0",
     "typescript": "~4.7.2"
+  },
+  "cordova": {
+    "platforms": [
+      "android"
+    ]
   }
 }

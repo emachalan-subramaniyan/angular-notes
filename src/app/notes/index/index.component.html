@@ -1,23 +1,29 @@
 <div class="container">
     <h1>Angular Notes</h1>
   
-    <a href="#" routerLink="/notes/create/" class="btn btn-success">Create New Note</a>
-    
+    <a href="#" routerLink="/notes/create/" class="btn  btn-primary btn-sm float-right">Create New Note</a>
+    <div class="row w-auto">
+      <p class="w-auto m-0" >Sort by:</p>
+      <select class="w-auto" (change)="onFilterChange($event)" [(ngModel)]="selectedSore">
+        <option value='0'>Default</option>
+        <option value='1'>Alphabetic</option>
+        <option value='2'>Created At</option>
+      </select>
+    </div>
     <table class="table table-bordered">
       <tr>
-        <th>ID</th>
         <th>Title</th>
         <th>Content</th>
         <th width="220px">Action</th>
       </tr>
       <tr *ngFor="let note of notes">
-        <td>{{ note.id }}</td>
+        <!-- <td>{{ note.id }}</td> -->
         <td>{{ note.title }}</td>
         <td>{{ note.content }}</td>
         <td>
-          <a href="#" [routerLink]="['/notes/', note.id, 'view']" class="btn btn-info btn-view">View</a>
-          <a href="#" [routerLink]="['/notes/', note.id, 'edit']" class="btn btn-primary btn-blue">Edit</a>
-          <button type="button" (click)="deleteNote(note.id)" class="btn btn-danger btn-red">Delete</button>
+          <a href="#" [routerLink]="['/notes/', note.id, 'view']" class=" btn-view">View</a>
+          <a href="#" [routerLink]="['/notes/', note.id, 'edit']" class="btn-blue">Edit</a>
+          <a type="button" (click)="deleteNote(note.id)" class=" btn-red">Delete</a>
         </td>
       </tr>
     </table>
